@@ -1,5 +1,5 @@
 class PlaysController < ApplicationController
-before_action :find_plays, only: [:show :edit, :update, :destroy]
+before_action :find_plays, only: [:show, :edit, :update, :destroy]
 
   def index
     @plays = Play.all.order("created_at DESC")
@@ -23,7 +23,25 @@ before_action :find_plays, only: [:show :edit, :update, :destroy]
       render 'new'
     end
   end
+
+  def edit
+    
+  end
   
+  def update
+    if @play.update(play_params)
+      redirect_to play_path
+    else
+      render 'edit'
+    end
+  end
+  
+  def destroy
+    @play.destroy
+    redirect_to root_path
+  end
+  
+
   private
 
   def play_params
