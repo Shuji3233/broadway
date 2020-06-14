@@ -18,6 +18,7 @@ gem 'mini_racer', platforms: :ruby
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'simple_form'
 gem 'jquery-rails'
+gem 'devise', '~> 4.7', '>= 4.7.2'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
