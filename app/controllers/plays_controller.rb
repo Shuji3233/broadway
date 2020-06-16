@@ -12,11 +12,12 @@ before_action :find_plays, only: [:show, :edit, :update, :destroy]
 
   def new
     @play = current_user.plays.build
+    @categories = Category.all.map{ |c| [c.name, c.id]}
   end
 
   def create
     @play = current_user.plays.build(play_params)
-
+    @play.category_id = params[:category_id]
     if @play.save
       redirect_to root_path
     else
@@ -25,10 +26,11 @@ before_action :find_plays, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
-    
+    @categories = Category.all.map{ |c| [c.name, c.id]}
   end
   
   def update
+    @play.category_id = params[:category_id]
     if @play.update(play_params)
       redirect_to play_path
     else
@@ -45,7 +47,7 @@ before_action :find_plays, only: [:show, :edit, :update, :destroy]
   private
 
   def play_params
-    params.require(:play).permit(:title, :description, :directer)
+    params.require(:play).permit(:title, :description, :directer, :category_id)
   end
   
   def find_plays
