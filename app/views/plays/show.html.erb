@@ -3,26 +3,29 @@
     <%= image_tag @play.play_img.url(:play_show), class: "play-show" %>
   </div>
 
-  <div class="col-md-8">
-    <div class="play-info">
-      <h2 class="play-title"><%= @play.title %></h2>
-      <h3 class="play-directer"><span><em>From: </em></span><%= @play.directer %></h3>
-      <h4 class="play-directer"><%= @play.category.name %></h4>
-      <p class="desc"><%= @play.description %></p>
-    </div>
-  </div>
+	<div class="col-md-8">
+		<div class="play-info">
+			<h2 class="play-title"><%= @play.title %></h2>
+			<h3 class="play-director"><span><em>From: </em></span><%= @play.directer %></h3>
+			<h4 class="play-director"><%= @play.category.name %></h4>
+			<h4 class="avg-rating">Average Rating</h4>
+			<div class="average-review-rating" data-score=<%= @average_review %>></div>
+			<span class="number-of-reviews"><em>From: </em><%= @play.reviews.count %> reviews </span>
+			<p class="play-desc"><%= @play.description %></p>
+		</div>
+	</div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="reviews">
-      <h1> Reiviews </h1>
-      <%= render @play.reviews %>
-      <div>
-        <%= link_to "Add reviews", new_play_review_path(@play), class: "btn-custom" %>
-      </div>
-    </div>
-  </div>
+	<div class="col-md-12">
+		<div class="reviews">
+			<h1> Reviews </h1>
+				<%= render @play.reviews %>
+				<div>
+					<%= link_to "Add Reviews", new_play_review_path(@play), class: "btn-custom" %>
+				</div>
+		</div>
+	</div>
 </div>
 
 <div>
@@ -33,3 +36,23 @@
   <% end %>
 <% end %>
 </div>
+
+<script>
+	$('.review-rating').raty({
+		readOnly: true,
+		score: function() {
+			return $(this).attr('data-score');
+		},
+		path: '/assets/'
+	});
+</script>
+
+<script>
+	$('.average-review-rating').raty({
+		readOnly: true,
+		path: '/assets/',
+		score: function() {
+			return $(this).attr('data-score')
+		}
+	});
+</script>
